@@ -1,9 +1,5 @@
 setImmediate(function() {
 	Java.perform(function() {
-		var ANSI_BLUE = "\u001B[34m";
-		var ANSI_CYAN = "\u001B[36m";
-		var ANSI_WHITE = "\u001B[37m";
-
 		var sqliteDatabase = Java.use("android.database.sqlite.SQLiteDatabase");
 
 		// execSQL(String sql)
@@ -19,6 +15,64 @@ setImmediate(function() {
 			var execSQLRes = this.execSQL(var0, var1);
 			return execSQLRes;
 		};
+
+		// query(boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
+  		sqliteDatabase.query.overload('boolean', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'java.lang.String').implementation = function(var0, var1, var2, var3, var4, var5, var6, var7, var8) {
+			var methodVal = "[*] SQLiteDatabase.query called.";
+			var logVal = "Table: " + var1 + ", selection value: " + var3 + ", selectionArgs: " + var4 + " distinct: " + var0;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryRes = this.query(var0, var1, var2, var3, var4, var5, var6, var7, var8);
+			return queryRes;
+		};
+
+
+  		// query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
+  		sqliteDatabase.query.overload('java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'java.lang.String').implementation = function(var0, var1, var2, var3, var4, var5, var6, var7) {
+			var methodVal = "[*] SQLiteDatabase.query called.";
+			var logVal = "Table: " + var0 + ", selection value: " + var2 + ", selectionArgs: " + var3;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryRes = this.query(var0, var1, var2, var3, var4, var5, var6, var7);
+			return queryRes;
+		};
+
+   		// query(boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, CancellationSignal cancellationSignal)
+   		sqliteDatabase.query.overload('boolean', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'android.os.CancellationSignal').implementation = function(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9) {
+			var methodVal = "[*] SQLiteDatabase.query called.";
+			var logVal = "Table: " + var1 + ", selection value: " + var3 + ", selectionArgs: " + var4;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryRes = this.query(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9);
+			return queryRes;
+		};
+
+   		// query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy)
+  		sqliteDatabase.query.overload('java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String').implementation = function(var0, var1, var2, var3, var4, var5, var6) {
+			var methodVal = "[*] SQLiteDatabase.query called.";
+			var logVal = "Table: " + var0 + ", selection value: " + var2 + ", selectionArgs: " + var3;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryRes = this.query(var0, var1, var2, var3, var4, var5, var6);
+			return queryRes;
+		};
+
+   		// queryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, CancellationSignal cancellationSignal)
+   		// queryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
+
+
+		// rawQuery(String sql, String[] selectionArgs) 
+		sqliteDatabase.rawQuery.overload('java.lang.String', '[Ljava.lang.String;').implementation = function(var0, var1) {
+			console.log("[*] SQLiteDatabase.rawQuery called with query: " + var0 + " and contentValues: " + var1 +"\n");
+			var rawQueryRes = this.rawQuery(var0, var1);
+			return rawQueryRes;
+		};
+
+		// rawQuery(String sql, String[] selectionArgs, CancellationSignal cancellationSignal)
+		sqliteDatabase.rawQuery.overload('java.lang.String', '[Ljava.lang.String;', 'android.os.CancellationSignal').implementation = function(var0, var1, var2) {
+			console.log("[*] SQLiteDatabase.rawQuery called with query: " + var0 + " and contentValues: " + var1 +"\n");
+			var rawQueryRes = this.rawQuery(var0, var1, var2);
+			return rawQueryRes;
+		};
+
+		// rawQueryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable, CancellationSignal cancellationSignal)
+   		// rawQueryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable)
 
 		// insert(String table, String nullColumnHack, ContentValues values)
 		sqliteDatabase.insert.overload('java.lang.String', 'java.lang.String', 'android.content.ContentValues').implementation = function(var0, var1, var2) {
@@ -48,25 +102,11 @@ setImmediate(function() {
 			return insertValueRes;
 		};
 
-		// rawQuery(String sql, String[] selectionArgs) 
-		sqliteDatabase.rawQuery.overload('java.lang.String', '[Ljava.lang.String;').implementation = function(var0, var1) {
-			console.log("[*] SQLiteDatabase.rawQuery called with query: " + var0 + " and contentValues: " + var1 +"\n");
-			var rawQueryRes = this.rawQuery(var0, var1);
-			return rawQueryRes;
-		};
-
-		// rawQuery(String sql, String[] selectionArgs) 
-		sqliteDatabase.rawQuery.overload('java.lang.String', '[Ljava.lang.String;', 'android.os.CancellationSignal').implementation = function(var0, var1, var2) {
-			console.log("[*] SQLiteDatabase.rawQuery called with query: " + var0 + " and contentValues: " + var1 +"\n");
-			var rawQueryRes = this.rawQuery(var0, var1, var2);
-			return rawQueryRes;
-		};
-
 		// update(String table, ContentValues values, String whereClause, String[] whereArgs)
 		sqliteDatabase.update.overload('java.lang.String', 'android.content.ContentValues', 'java.lang.String', '[Ljava.lang.String;').implementation = function(var0, var1, var2, var3) {
 			var methodVal = "[*] SQLiteDatabase.update called.";
 			var logVal = "Update table: " + var0 + " with where clause: "  + var2 + " whereArgs:" + var3 + " and values to update: " + var1 +"\n";
-			console.log(ANSI_CYAN + methodVal + ANSI_CYAN, ANSI_WHITE + logVal + ANSI_WHITE);
+			console.log(methodVal, logVal);
 			
 			var updateRes = this.update(var0, var1, var2, var3);
 			return updateRes;
@@ -76,7 +116,7 @@ setImmediate(function() {
 		sqliteDatabase.updateWithOnConflict.overload('java.lang.String', 'android.content.ContentValues', 'java.lang.String', '[Ljava.lang.String;', 'int').implementation = function(var0, var1, var2, var3, var4) {
 			var methodVal = "[*] SQLiteDatabase.updateWithOnConflict called.";
 			var logVal = "Update table: " + var0 + " with where clause: "  + var2 + " whereArgs:" + var3 + " values to update: " + var1 + " and conflictAlgorithm: " + var4 +"\n";
-			console.log(ANSI_CYAN + methodVal + ANSI_CYAN, ANSI_WHITE + logVal + ANSI_WHITE);
+			console.log(methodVal, logVal);
 			
 			var updateRes = this.updateWithOnConflict(var0, var1, var2, var3, var4);
 			return updateRes;
