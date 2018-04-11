@@ -54,8 +54,22 @@ setImmediate(function() {
 		};
 
    		// queryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, CancellationSignal cancellationSignal)
-   		// queryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
+  		sqliteDatabase.queryWithFactory.overload('android.database.sqlite.SQLiteDatabase$CursorFactory', 'boolean', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'java.lang.String').implementation = function(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9) {
+			var methodVal = "[*] SQLiteDatabase.queryWithFactory called.";
+			var logVal = "Table: " + var2 + ", selection value: " + var4 + ", selectionArgs: " + var5 + " distinct: " + var1;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryWithFactoryRes = this.queryWithFactory(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9);
+			return queryWithFactoryRes;
+		};   		
 
+   		// queryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit)
+  		sqliteDatabase.queryWithFactory.overload('android.database.sqlite.SQLiteDatabase$CursorFactory', 'boolean', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'java.lang.String', 'android.os.CancellationSignal').implementation = function(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10) {
+			var methodVal = "[*] SQLiteDatabase.queryWithFactory called.";
+			var logVal = "Table: " + var2 + ", selection value: " + var4 + ", selectionArgs: " + var5 + " distinct: " + var1;
+			console.log(methodVal + " " + logVal + "\n");
+			var queryWithFactoryRes = this.queryWithFactory(var0, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10);
+			return queryWithFactoryRes;
+		}; 
 
 		// rawQuery(String sql, String[] selectionArgs) 
 		sqliteDatabase.rawQuery.overload('java.lang.String', '[Ljava.lang.String;').implementation = function(var0, var1) {
@@ -72,7 +86,18 @@ setImmediate(function() {
 		};
 
 		// rawQueryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable, CancellationSignal cancellationSignal)
+   		sqliteDatabase.rawQueryWithFactory.overload('android.database.sqlite.SQLiteDatabase$CursorFactory', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String', 'android.os.CancellationSignal').implementation = function(var0, var1, var2, var3, var4) {
+			console.log("[*] SQLiteDatabase.rawQueryWithFactory called with query: " + var1 + " and contentValues: " + var2 + "\n");
+			var rawQueryWithFactoryRes = this.rawQueryWithFactory(var0, var1, var2, var3, var4);
+			return rawQueryWithFactoryRes;
+		};
+
    		// rawQueryWithFactory(SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable)
+   		sqliteDatabase.rawQueryWithFactory.overload('android.database.sqlite.SQLiteDatabase$CursorFactory', 'java.lang.String', '[Ljava.lang.String;', 'java.lang.String').implementation = function(var0, var1, var2, var3) {
+			console.log("[*] SQLiteDatabase.rawQueryWithFactory2 called with query: " + var1 + " and contentValues: " + var2 +"\n");
+			var rawQueryWithFactoryRes = this.rawQueryWithFactory(var0, var1, var2, var3);
+			return rawQueryWithFactoryRes;
+		};
 
 		// insert(String table, String nullColumnHack, ContentValues values)
 		sqliteDatabase.insert.overload('java.lang.String', 'java.lang.String', 'android.content.ContentValues').implementation = function(var0, var1, var2) {
