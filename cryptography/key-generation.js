@@ -117,5 +117,16 @@ setImmediate(function() {
 			return this.getInstance(var0, var1);
 		};
 
+		/*var secretKeySpec = Java.use("javax.crypto.spec.SecretKeySpec");
+		secretKeySpec.getInstance.overload('java.lang.String').implementation = function (var0) {
+			console.log("[*] Mac.getInstance called with algorithm: " + var0 + "\n");
+			return this.getInstance(var0);
+		};
+
+		secretKeySpec.getInstance.overload('java.lang.String', 'java.lang.String').implementation = function (var0, var1) {
+			console.log("[*] Mac.getInstance called with algorithm: " + var0 + " and provider: " + var1 + "\n");
+			return this.getInstance(var0, var1);
+		};*/
+
 	});
 });
