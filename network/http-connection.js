@@ -74,16 +74,75 @@ setImmediate(function() {
 			return lastModified;
 		};
 
-		var httpURLConnection = Java.use("java.net.HttpURLConnection");
+		URLConnection.getInputStream.implementation = function () {
+			console.log("[*] Get input stream called.\n");
+			return this.getInputStream;
+		};
+
+		URLConnection.setDoOutput.overload('boolean').implementation = function (var0) {
+			console.log("[*] URLConnection.setDoOutput called with value: " + var0 + ".\n");
+			this.setDoOutput(var0);
+		};
+
+		URLConnection.setDoInput.overload('boolean').implementation = function (var0) {
+			console.log("[*] URLConnection.setDoInput called with value: " + var0 + ".\n");
+			this.setDoInput(var0);
+		};
+
+		var httpURLConnection = Java.use("com.android.okhttp.internal.huc.HttpURLConnectionImpl");
 
 		httpURLConnection.setRequestMethod.overload('java.lang.String').implementation = function (var0) {
-			console.log("[*] Set request method: " + contentExpiration + "\n");
+			console.log("[*] Set request method called: " + var0 + "\n");
 			this.setRequestMethod(var0);
+		};
+
+		httpURLConnection.setRequestMethod.overload('java.lang.String').implementation = function (var0) {
+			console.log("[*] Set request method called: " + var0 + "\n");
+			this.setRequestMethod(var0);
+		};	
+
+		httpURLConnection.connect.implementation = function () {
+			console.log("[*] Connect called.\n");
+			this.connect();
 		};
 
 		httpURLConnection.disconnect.implementation = function () {
 			console.log("[*] Disconnect called.\n");
 			this.disconnect();
+		};
+
+		httpURLConnection.getResponseCode.implementation = function () {
+			var responseCode  = this.getResponseCode();
+			console.log("[*] Get response code called: " + responseCode + "\n");
+			return responseCode;
+		};
+
+		var httpsURLConnection = Java.use("com.android.okhttp.internal.huc.HttpsURLConnectionImpl");
+
+		httpsURLConnection.setRequestMethod.overload('java.lang.String').implementation = function (var0) {
+			console.log("[*] Set request method called: " + var0 + "\n");
+			this.setRequestMethod(var0);
+		};
+
+		httpsURLConnection.connect.implementation = function () {
+			console.log("[*] Connect called.\n");
+			this.connect();
+		};
+
+		httpsURLConnection.disconnect.implementation = function () {
+			console.log("[*] Disconnect called.\n");
+			this.disconnect();
+		};
+
+		httpsURLConnection.getResponseCode.implementation = function () {
+			var responseCode  = this.getResponseCode();
+			console.log("[*] Get response code called: " + responseCode + "\n");
+			return responseCode;
+		};
+
+		httpsURLConnection.setRequestProperty.overload('java.lang.String', 'java.lang.String').implementation = function (var0, var1) {
+			console.log("[*] URLConnection.setRequestProperty called with key: " + var0 + " and value: " + var1 + ".\n");
+			this.setRequestProperty(var0, var1);
 		};
 	});
 });
