@@ -9,6 +9,12 @@ setImmediate(function() {
 			return line;
 		};
 
+		bufferedReader.read.overload().implementation = function () {
+			var intVal = this.read();
+			console.log("[*] BufferedReader.read called: " + intVal +"\n");
+			return intVal;
+		};
+
 		var writer = Java.use("java.io.Writer");
 
 		writer.write.overload('java.lang.String').implementation = function (var0) {
